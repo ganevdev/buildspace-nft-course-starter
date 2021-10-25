@@ -4,9 +4,9 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import myEpicNft from './utils/MyEpicNFT.json';
 
-const TWITTER_HANDLE = '_buildspace';
+const TWITTER_HANDLE = 'Ganevru';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
+const OPENSEA_LINK = 'https://testnets.opensea.io/collection/squarenft-ind9r8ieyk';
 const TOTAL_MINT_COUNT = 50;
 
 // I moved the contract address to the top for easy access.
@@ -153,6 +153,8 @@ const App = () => {
             Each unique. Each beautiful. Discover your NFT today.
           </p>
           {currentAccount === "" ? renderNotConnectedContainer() : renderMintUI()}
+          <div style={{ marginTop: 30 }}><a target="_blank"
+            rel="noreferrer" href={OPENSEA_LINK}><button className="cta-button" style={{ backgroundColor: 'blue' }}>OPENSEA LINK</button></a></div>
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
