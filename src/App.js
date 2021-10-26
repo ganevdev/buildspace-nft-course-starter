@@ -11,10 +11,33 @@ const OPENSEA_LINK =
 const TOTAL_MINT_COUNT = 50;
 
 // I moved the contract address to the top for easy access.
-const CONTRACT_ADDRESS = "0x2cAbc48E38F79616C7030cAb94893fd7A53966e1";
+const CONTRACT_ADDRESS = "0x4b99b41727D01cea7BDA82B6Ae875AdaC56Afa91";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
+  const [nftCount, setNftCount] = useState(0);
+
+  const getTotalNFTsMintedSoFar = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          myEpicNft.abi,
+          signer
+        );
+
+        let nftCount = await contract.getTotalNFTsMintedSoFar();
+        setNftCount(nftCount.toNumber());
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -143,6 +166,10 @@ const App = () => {
     checkIfWalletIsConnected();
   }, []);
 
+  useEffect(() => {
+    getTotalNFTsMintedSoFar();
+  }, [nftCount]);
+
   const renderNotConnectedContainer = () => (
     <button
       onClick={connectWallet}
@@ -165,9 +192,14 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My NFT Collection</p>
+          <p className="header gradient-text">
+            My Lord of the Rings NFT Collection
+          </p>
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
+          </p>
+          <p className="sub-text">
+            Only {TOTAL_MINT_COUNT - nftCount} NFTs Left!
           </p>
           {currentAccount === ""
             ? renderNotConnectedContainer()
