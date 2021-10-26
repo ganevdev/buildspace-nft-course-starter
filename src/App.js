@@ -170,7 +170,7 @@ const App = () => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     getTotalNFTsMintedSoFar();
