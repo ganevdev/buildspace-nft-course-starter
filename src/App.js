@@ -7,7 +7,7 @@ import myEpicNft from "./utils/MyEpicNFT.json";
 const TWITTER_HANDLE = "Ganevru";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK =
-  "https://testnets.opensea.io/collection/squarenft-ind9r8ieyk";
+  "https://testnets.opensea.io/collection/squarenft-xfixxjs87k";
 const TOTAL_MINT_COUNT = 50;
 
 // I moved the contract address to the top for easy access.
