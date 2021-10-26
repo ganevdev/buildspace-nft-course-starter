@@ -16,6 +16,7 @@ const CONTRACT_ADDRESS = "0x4b99b41727D01cea7BDA82B6Ae875AdaC56Afa91";
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [nftCount, setNftCount] = useState(0);
+  const [miningNFT, setMiningNFT] = useState(false);
 
   const getTotalNFTsMintedSoFar = async () => {
     try {
@@ -133,6 +134,7 @@ const App = () => {
   };
 
   const askContractToMintNft = async () => {
+    setMiningNFT(true);
     try {
       const { ethereum } = window;
 
@@ -154,12 +156,16 @@ const App = () => {
         console.log(
           `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
         );
+        setMiningNFT(false);
       } else {
+        setMiningNFT(false);
         console.log("Ethereum object doesn't exist!");
       }
     } catch (error) {
+      setMiningNFT(false);
       console.log(error);
     }
+    setMiningNFT(false);
   };
 
   useEffect(() => {
@@ -204,13 +210,16 @@ const App = () => {
           {currentAccount === ""
             ? renderNotConnectedContainer()
             : renderMintUI()}
+          <p style={{ color: "white", minHeight: 30 }}>
+            {miningNFT ? "mining...please wait." : ""}
+          </p>
           <div style={{ marginTop: 30 }}>
             <a target="_blank" rel="noreferrer" href={OPENSEA_LINK}>
               <button
                 className="cta-button"
                 style={{ backgroundColor: "blue" }}
               >
-                OPENSEA LINK
+                Collection on OpenSea
               </button>
             </a>
           </div>
